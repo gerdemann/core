@@ -88,7 +88,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     # Start a reauth flow
     entry.async_start_reauth(hass)
 
-    entry.add_update_listener(_async_update_listener)
+    entry.async_on_unload(entry.add_update_listener(_async_update_listener))
 
     return True
 
