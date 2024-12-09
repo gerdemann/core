@@ -39,10 +39,18 @@ class KitchenSinkConfigFlow(ConfigFlow, domain=DOMAIN):
 
     @staticmethod
     @callback
-    def async_get_subentry_flow(config_entry: ConfigEntry) -> ConfigSubentryFlow:
+    def async_get_subentry_flow(
+        config_entry: ConfigEntry, subentry_type: str
+    ) -> ConfigSubentryFlow:
         """Get the subentry flow for this handler."""
 
         return SubentryFlowHandler()
+
+    @classmethod
+    @callback
+    def async_supported_subentries(cls, config_entry: ConfigEntry) -> tuple[str, ...]:
+        """Return subentries supported by this handler."""
+        return ("entity",)
 
     async def async_step_import(self, import_data: dict[str, Any]) -> ConfigFlowResult:
         """Set the config entry up from yaml."""

@@ -115,7 +115,9 @@ async def test_subentry_flow(hass: HomeAssistant) -> None:
     assert await hass.config_entries.async_setup(config_entry.entry_id)
     await hass.async_block_till_done()
 
-    result = await hass.config_entries.subentries.async_init(config_entry.entry_id)
+    result = await hass.config_entries.subentries.async_init(
+        (config_entry.entry_id, "entity")
+    )
     assert result["type"] is FlowResultType.FORM
     assert result["step_id"] == "add_sensor"
 
